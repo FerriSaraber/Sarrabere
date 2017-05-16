@@ -1,5 +1,36 @@
-<h1>hello!</h1>
+<div class="chart" id="collapsable-example"></div>
+
+<script>
+var config = {
+    container: "#collapsable-example",
+
+    animateOnInit: true,
+
+    node: {
+        collapsable: true
+    },
+    animation: {
+        nodeAnimation: "easeOutBounce",
+        nodeSpeed: 700,
+        connectorsAnimation: "bounce",
+        connectorsSpeed: 700
+    }
+},
+
 <% @family_members.each do |member| %>
-  <span><%=member.names%></span>
-  <hr />
+  <% if member.parent_id.present? %>
+    <%= member.names %> = {
+      text: {name: "<%=j member.names%>" },
+      parent: <%= member.parent.names %>
+    },
+  <% else %>
+    <%= member.names %> = {
+      text: {name: "<%=j member.names%>"}
+    },
+  <% end %>
 <% end %>
+
+chart_config = [config, GerardusJohannesHermanus, René, Peter, Ferri];
+
+tree = new Treant( chart_config );
+</script>
